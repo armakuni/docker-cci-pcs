@@ -19,11 +19,11 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y \
     libssl-dev \
     libpng-dev \
     libjpeg-dev \
-    libqt5webkit5-dev
-    supervisor
+    libqt5webkit5-dev \
+    supervisor && \
+    mkdir -p /var/log/supervisor
 
 ENV PHANTOM_JS_TAG 2.0.0
-
 RUN git clone https://github.com/ariya/phantomjs.git /tmp/phantomjs && \
   cd /tmp/phantomjs && git checkout $PHANTOM_JS_TAG && \
   ./build.sh --confirm && mv bin/phantomjs /usr/local/bin && \
