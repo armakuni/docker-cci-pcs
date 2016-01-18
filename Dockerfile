@@ -20,6 +20,7 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y \
     libpng-dev \
     libjpeg-dev \
     libqt5webkit5-dev
+    supervisor
 
 ENV PHANTOM_JS_TAG 2.0.0
 
