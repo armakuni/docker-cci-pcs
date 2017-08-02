@@ -1,4 +1,4 @@
-FROM ruby:2.3.0
+FROM ruby:2.3.3
 
 RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y \
     vim \
@@ -23,11 +23,8 @@ RUN apt-get update -qq && apt-get upgrade -y && apt-get install -y \
     supervisor && \
     mkdir -p /var/log/supervisor
 
-ENV PHANTOM_JS_TAG 2.0.0
-RUN git clone https://github.com/ariya/phantomjs.git /tmp/phantomjs && \
-  cd /tmp/phantomjs && git checkout $PHANTOM_JS_TAG && \
-  ./build.sh --confirm && mv bin/phantomjs /usr/local/bin && \
-  rm -rf /tmp/phantomjs
+RUN curl --output /usr/local/bin/phantomjs https://s3.amazonaws.com/circle-downloads/phantomjs-2.1.1 && \
+    chmod +x /usr/local/bin/phantomjs
 
 RUN apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 RUN echo 'deb http://downloads-distro.mongodb.org/repo/debian-sysvinit dist 10gen' | tee /etc/apt/sources.list.d/mongodb.list
